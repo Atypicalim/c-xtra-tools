@@ -3,9 +3,6 @@
 #ifndef PNTR_EXT_HEADER
 #define PNTR_EXT_HEADER
 
-#include "./pntr4ext.c"
-
-
 #ifdef PNTR_EXT_NO_CUTE
 #define PNTR_NO_CUTE_PNG_IMPLEMENTATION
 #else
