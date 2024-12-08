@@ -13,9 +13,12 @@
 #ifdef PNTR_EXT_NO_STB
 #define PNTR_NO_STB_IMAGE_IMPLEMENTATION
 #define PNTR_NO_STB_IMAGE_WRITE_IMPLEMENTATION
-#define PNTR_NO_STB_TRUETYPE_IMPLEMENTATION
 #else
 #define PNTR_STB_IMAGE
+#endif
+
+#ifndef PNTR_ENABLE_TTF
+#define PNTR_NO_STB_TRUETYPE_IMPLEMENTATION
 #endif
 
 #if defined(PNTR_EXT_NO_STB) && defined(PNTR_EXT_NO_CUTE)
@@ -33,7 +36,7 @@
 #define PNTR_STB_IMAGE_H "../../others/stb_image.h"
 #define PNTR_STB_IMAGE_WRITE_H "../../others/stb_image_write.h"
 
-#define PNTR_TRUE_TYPE_H "../../others/stb_truetype.h"
+#define PNTR_TRUE_TYPE_H "./../others/stb_truetype.h"
 #define PNTR_UTF8_PATH_H "./../others/utf8.h"
 #define PNTR_FONT_PATH_H "./../others/font8x8_basic.h"
 

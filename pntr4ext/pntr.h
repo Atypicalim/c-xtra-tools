@@ -1338,7 +1338,7 @@ extern "C" {
     #define PNTR_TRUE_TYPE_H "external/stb_truetype.h"
     #endif
     #include PNTR_TRUE_TYPE_H
-    #define PNTR_NO_STB_TRUETYPE_IMPLEMENTATION
+    #define PNTR_STB_TRUETYPE_IMPLEMENTATION
 
     #if defined(__GNUC__) || defined(__clang__)
         #pragma GCC diagnostic pop
