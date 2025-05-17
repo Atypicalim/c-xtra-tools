@@ -1,16 +1,11 @@
 // riley ext
 
-#define RGFW_IMPLEMENTATION
-#include "./src/RGFW.h"
+#if defined(RILEY_EXT_NO_WIDGETS)
+#define RSGL_NO_WIDGETS
+#endif
 
-#define RSGL_INT_DEFINED
-#define RSGLDEF
+#define RSGL_NO_DEPS_FOLDER
 #define RSGL_IMPLEMENTATION
 #include "./src/RSGL.h"
-#include "./src/RSGL_gl.h"
-
-#if defined(RILEY_EXT_NO_SOMETHING)
-#define RILEY_SOMELESS
-#endif
 
 #include "riley4ext.c"

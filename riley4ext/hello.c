@@ -5,7 +5,7 @@
 int main() {
 
     RGFW_window* win = RGFW_createWindow("Hello", (RGFW_rect){0, 0, 500, 500}, RGFW_CENTER);
-	RSGL_init(RSGL_AREA(win->r.w, win->r.h), RGFW_getProcAddress, RSGL_GL_renderer());
+	RSGL_init(RSGL_AREA(win->r.w, win->r.h), RGFW_getProcAddress);
 
     while (RGFW_window_shouldClose(win) == false) {
 
@@ -16,10 +16,9 @@ int main() {
 		}
 
         RSGL_clear(RSGL_RGB(65, 65, 65));
-        RSGL_setRotate(RSGL_POINT3D(0, 0, 45));
+        RSGL_rotate(RSGL_POINT3D(0, 0, 45));
         RSGL_drawRect(RSGL_RECT(150, 150, 200, 200), RSGL_RGB(255, 0, 0));
 
-        RSGL_draw();
 		RGFW_window_swapBuffers(win);
 		RGFW_window_checkFPS(win, 0);
 
