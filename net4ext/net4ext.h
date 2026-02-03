@@ -15,17 +15,25 @@
 #include "./sandbird/sandbird.c"
 #include "./dyad/dyad.c"
 
+bool net4RequestInitialized = false;
+bool net4ServerInitialized = false;
+bool net4socketInitialized = false;
+
 #define Net4extType_REQ 1
 #define Net4extType_RSP 2
+#define Net4extType_Socket 3
 
 #define Net4extFlag_REQUEST 1
 #define Net4extFlag_SERVE 2
-#define Net4extFlag_LISTEN 3
-#define Net4extFlag_CONNECT 4
+#define Net4extFlag_SOCKET 3
 
 typedef struct Net4extReq Net4extReq;
 typedef struct Net4extRsp Net4extRsp;
 typedef int (*Net4Server_Callback)(Net4extReq*, Net4extRsp*);
+
+typedef struct Net4extSocket Net4extSocket;
+typedef void (*Net4Socket_Accepter)(Net4extSocket *);
+typedef void (*Net4Socket_Handler)(Net4extSocket *, void *);
 
 
 typedef struct __Net4extObj {
@@ -59,7 +67,28 @@ struct Net4extRsp {
     void *extra;
 };
 
+struct Net4extSocket {
+    struct __Net4extObj;
+    int status;
+    char url[1024];
+    int port;
+    dyad_Stream *stream;
+    Net4Socket_Handler onConnect;
+    Net4Socket_Handler onData;
+    Net4Socket_Handler onClose;
+    Net4Socket_Handler onError;
+    Net4Socket_Handler onTimeout;
+};
+
+#define Net4Socket_STATUS_NONE 1
+#define Net4Socket_STATUS_CONNECTING 2
+#define Net4Socket_STATUS_CONNECTED 3
+#define Net4Socket_STATUS_CLOSING 4
+#define Net4Socket_STATUS_CLOSED 5
+
 Net4extReq __net4serverReq;
 Net4extRsp __net4serverRsp;
+
+Net4extSocket* __net4ext_newSocket(dyad_Stream *);
 
 #endif
