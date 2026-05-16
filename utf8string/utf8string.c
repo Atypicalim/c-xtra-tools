@@ -1,4 +1,4 @@
-﻿#include "UTF8String.h"
+﻿#include "utf8string.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -456,7 +456,7 @@ void utf8string_grow(UTF8String* str, size_t needed_size) {
     if (str->raw_size < calculated_needed) {
         uint8_t* new_block = realloc(str->data, calculated_needed);
         if (new_block) {
-            str->data = new_block;
+            str->data = (char*)new_block;
             str->raw_size = calculated_needed;
         }
         else {
@@ -1286,7 +1286,7 @@ bool utf8string_test()
         utf32string_to_8(str, (sizeof(str) / sizeof(uint32_t)), utf8_vec, &utf8_vec_size);
         assert(utf8_vec_size == 11);
         utf32string_to_8(str, (sizeof(str) / sizeof(uint32_t)), utf8_vec, &utf8_vec_size);
-        assert(strcmp(utf8_vec, u8"a߿일😀") == 0);
+        assert(strcmp((const char *)utf8_vec, u8"a߿일😀") == 0);
         utf8_vec_size = 0;
     }
     {
@@ -1324,9 +1324,9 @@ bool utf8string_test()
         size_t utf16_vec_size = 0;
 
         const char str[] = u8"a߿일😀";
-        utf8string_to_16(str, sizeof(str), utf16_vec, &utf16_vec_size);
+        utf8string_to_16((const uint8_t *)str, sizeof(str), utf16_vec, &utf16_vec_size);
         assert(utf16_vec_size == 6);
-        utf8string_to_16(str, sizeof(str), utf16_vec, &utf16_vec_size);
+        utf8string_to_16((const uint8_t *)str, sizeof(str), utf16_vec, &utf16_vec_size);
         assert(utf16_strcmp(utf16_vec, u"a߿일😀"));
     }
     {
@@ -1340,7 +1340,7 @@ bool utf8string_test()
         utf16string_to_8(str, (sizeof(str) / sizeof(uint16_t)), utf8_vec, &utf8_vec_size);
         assert(utf8_vec_size == 11);
         utf16string_to_8(str, (sizeof(str) / sizeof(uint16_t)), utf8_vec, &utf8_vec_size);
-        assert(strcmp(utf8_vec, u8"a߿일😀") == 0);
+        assert(strcmp((const char *)utf8_vec, u8"a߿일😀") == 0);
     }
     {
         UTF8String* str = utf8string_from_cstr(u8"random string");

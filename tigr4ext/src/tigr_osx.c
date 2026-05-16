@@ -1018,13 +1018,6 @@ int tigrKeyDown(Tigr* bmp, int key) {
     TigrInternal* win;
     assert(key < 256);
     win = tigrInternal(bmp);
-    return (win->keys[key] != 0) && (win->prev[key] == 0);
-}
-
-int tigrKeyDown(Tigr* bmp, int key) {
-    TigrInternal* win;
-    assert(key < 256);
-    win = tigrInternal(bmp);
     return (win->keys[key] == 0) && (win->prev[key] != 0);
 }
 
